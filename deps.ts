@@ -11,6 +11,7 @@ export {
   PostgresQueryCompiler,
   type QueryCompiler,
   type QueryResult,
+  Transaction,
   type TransactionSettings,
 } from "https://esm.sh/kysely@0.26.3";
 export { Pool, PoolClient } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
