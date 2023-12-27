@@ -1,6 +1,7 @@
 # kysely-deno-postgres-dialect
 
 [![ci](https://github.com/Byzanteam/kysely_deno_postgres_dialect/actions/workflows/ci.yml/badge.svg)](https://github.com/Byzanteam/kysely_deno_postgres_dialect/actions/workflows/ci.yml)
+[![Latest version](https://deno.land/badge/kysely_deno_postgres_dialect/version)](https://deno.land/x/kysely_deno_postgres_dialect)
 
 [Kysely](https://github.com/kysely-org/kysely) dialect for PostgreSQL using the
 [deno-postgres](https://github.com/denodrivers/postgres) client.
