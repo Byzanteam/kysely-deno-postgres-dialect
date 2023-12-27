@@ -14,6 +14,7 @@ import { PostgresDriver } from "./src/postgres-driver.ts";
 import { PostgresDialectConfig } from "./src/postgres-dialect-config.ts";
 
 export { type DatabaseConnection, kysely, Pool, postgres } from "./deps.ts";
+export { type PostgresConnection } from "./src/postgres-connection.ts";
 
 export class KyselyDenoPostgresDialect implements Dialect {
   readonly #config: PostgresDialectConfig;
@@ -39,3 +40,5 @@ export class KyselyDenoPostgresDialect implements Dialect {
     return new PostgresIntrospector(db);
   }
 }
+
+export { getDB, setup, wrapTransaction } from "./src/utils.ts";

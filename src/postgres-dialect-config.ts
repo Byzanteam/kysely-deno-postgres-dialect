@@ -11,10 +11,10 @@ export interface PostgresDialectConfig {
    *
    * https://deno-postgres.com/#/?id=connection-pools
    */
-  pool: Pool | (() => Promise<Pool>);
+  pool: Pool | (() => Promise<Pool> | Pool);
 
   /**
    * Called once for each created connection.
    */
-  onCreateConnection?: (connection: DatabaseConnection) => Promise<void>;
+  onCreateConnection?: (connection: DatabaseConnection) => Promise<void> | void;
 }
