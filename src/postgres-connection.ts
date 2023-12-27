@@ -49,4 +49,8 @@ export class PostgresConnection implements DatabaseConnection {
   [PRIVATE_RELEASE_METHOD](): void {
     this.#client.release();
   }
+
+  async end(): Promise<void> {
+    await this.#client.end();
+  }
 }
