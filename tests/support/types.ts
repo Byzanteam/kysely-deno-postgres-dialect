@@ -4,7 +4,7 @@ import {
   Insertable,
   Selectable,
   Updateable,
-} from "kysely";
+} from "https://esm.sh/kysely@0.26.3";
 
 export interface Database {
   person: PersonTable;

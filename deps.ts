@@ -12,5 +12,5 @@ export {
   type QueryCompiler,
   type QueryResult,
   type TransactionSettings,
-} from "kysely";
-export { Pool, PoolClient } from "postgres";
+} from "https://esm.sh/kysely@0.26.3";
+export { Pool, PoolClient } from "https://deno.land/x/postgres@v0.17.0/mod.ts";

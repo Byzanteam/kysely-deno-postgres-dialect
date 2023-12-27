@@ -6,7 +6,7 @@ import {
   it,
 } from "https://deno.land/std@0.210.0/testing/bdd.ts";
 
-import { sql } from "kysely";
+import { sql } from "https://esm.sh/kysely@0.26.3";
 import { db } from "./support/database.ts";
 import * as PersonRepository from "./support/person-repository.ts";
 
