@@ -6,9 +6,11 @@ import {
   it,
 } from "https://deno.land/std@0.210.0/testing/bdd.ts";
 
-import { sql } from "kysely";
+import { kysely } from "../deps.ts";
 import { db } from "./support/database.ts";
 import * as PersonRepository from "./support/person-repository.ts";
+
+const sql = kysely.sql;
 
 describe("PersonRepository", () => {
   beforeAll(async () => {
