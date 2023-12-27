@@ -11,5 +11,10 @@
   "imports": {
     "kysely": "https://esm.sh/kysely@0.26.3",
     "postgres": "https://deno.land/x/postgres@v0.17.0/mod.ts"
+  },
+  "tasks": {
+    "test": "deno test -A",
+    "check:types": "deno check **/*.ts",
+    "check": "deno fmt --check && deno lint && deno task check:types && deno task test"
   }
 }
