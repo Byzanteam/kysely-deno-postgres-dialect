@@ -39,3 +39,5 @@ export class KyselyDenoPostgresDialect implements Dialect {
     return new PostgresIntrospector(db);
   }
 }
+
+export { getDB, setup, wrapTransaction } from "./src/utils.ts";
