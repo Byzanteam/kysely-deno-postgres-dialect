@@ -17,14 +17,7 @@ async function doWrapTransactionStub<T, U>(
     throw new Error("Transaction not initialized");
   }
 
-  try {
-    const result = await callback(transaction);
-    return result;
-  } catch (error) {
-    console.error("Transaction failed: ", error);
-
-    throw error;
-  }
+  return await callback(transaction);
 }
 
 type Stub = { restore: () => unknown };
