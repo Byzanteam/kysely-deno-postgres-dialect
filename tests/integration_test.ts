@@ -5,6 +5,10 @@ import {
   describe,
   it,
 } from "https://deno.land/std@0.210.0/testing/bdd.ts";
+import {
+  assertEquals,
+  assertExists,
+} from "https://deno.land/std@0.210.0/assert/mod.ts";
 
 import { kysely } from "../deps.ts";
 import { db } from "./support/database.ts";
@@ -58,5 +62,35 @@ describe("PersonRepository", () => {
 
   it("should delete a person with a given id", async () => {
     await PersonRepository.deletePerson(123);
+  });
+
+  it("should return numAffectedRows", async () => {
+    const insertResult = await db.insertInto("person")
+      .values({
+        first_name: "Jennifer",
+        last_name: "Aniston",
+        gender: "woman",
+      })
+      .executeTakeFirst();
+
+    assertEquals(insertResult.numInsertedOrUpdatedRows, BigInt(1));
+
+    const [person] = await PersonRepository.findPeople({});
+    assertExists(person);
+
+    const updateResult = await db
+      .updateTable("person")
+      .set({ gender: "woman" })
+      .where("id", "=", person.id)
+      .executeTakeFirst();
+
+    assertEquals(updateResult.numUpdatedRows, BigInt(1));
+
+    const deleteResult = await db
+      .deleteFrom("person")
+      .where("id", "=", person.id)
+      .executeTakeFirst();
+
+    assertEquals(deleteResult.numDeletedRows, BigInt(1));
   });
 });
