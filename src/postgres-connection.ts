@@ -24,7 +24,7 @@ export class PostgresConnection implements DatabaseConnection {
       result.command === "UPDATE" ||
       result.command === "DELETE"
     ) {
-      const numAffectedRows = BigInt(result.rows.length);
+      const numAffectedRows = BigInt(result.rowCount ?? result.rows.length);
 
       return {
         numUpdatedOrDeletedRows: numAffectedRows,
