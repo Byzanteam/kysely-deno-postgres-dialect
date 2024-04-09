@@ -37,11 +37,7 @@ export async function closeDB() {
 export type Callback<T, U> = (trx: Transaction<T>) => Promise<U>;
 
 async function doWrapTransaction<T, U>(callback: Callback<T, U>): Promise<U> {
-  try {
-    return await getDB<T>().transaction().execute(callback);
-  } finally {
-    await closeDB();
-  }
+  return await getDB<T>().transaction().execute(callback);
 }
 
 export async function wrapTransaction<T, U>(
