@@ -1,33 +1,20 @@
-import { DatabaseConnection, Kysely } from "../../deps.ts";
+import { Kysely } from "../../deps.ts";
 import { Database } from "./types.ts"; // this is the Database interface we defined earlier
-import { KyselyDenoPostgresDialect, Pool } from "../../mod.ts";
-import { PostgresConnection } from "../../src/postgres-connection.ts";
+import { postgres, PostgresJSDialect } from "../../mod.ts";
 
-const connections: PostgresConnection[] = [];
-
-const dialect = new KyselyDenoPostgresDialect({
-  pool: new Pool(
+const dialect = new PostgresJSDialect({
+  postgres: postgres(
     {
       database: "postgres",
       hostname: "localhost",
       password: "postgres",
       port: 5432,
       user: "postgres",
+      max: 10,
     },
-    10,
-    true,
   ),
-  onCreateConnection: (connection: DatabaseConnection) => {
-    connections.push(connection as PostgresConnection);
-  },
 });
 
 export const db = new Kysely<Database>({
   dialect,
 });
-
-export async function endConnections() {
-  for (const connection of connections) {
-    await connection.end();
-  }
-}
