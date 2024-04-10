@@ -4,28 +4,28 @@
 [![Latest version](https://deno.land/badge/kysely_deno_postgres_dialect/version)](https://deno.land/x/kysely_deno_postgres_dialect)
 
 [Kysely](https://github.com/kysely-org/kysely) dialect for PostgreSQL using the
-[deno-postgres](https://github.com/denodrivers/postgres) client.
+[postgresjs](https://github.com/porsager/postgres) client.
 
 ## 🚀 Getting started
 
 ```typescript
 import {
-  KyselyDenoPostgresDialect,
+  PostgresJSDialect,
   setup,
-} from "https://deno.land/x/kysely_deno_postgres_dialect/mod.ts";
+} from "https://deno.land/x/kysely_postgrs_js_dialect/mod.ts";
+import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
 
 setup(() => {
-  const dialect = new KyselyDenoPostgresDialect({
-    pool: new Pool(
+  const dialect = new PostgresJSDialect({
+    postgres: postgres(
       {
         database: "postgres",
         hostname: "localhost",
         password: "postgres",
         port: 5432,
         user: "postgres",
+        max: 10,
       },
-      10,
-      true,
     ),
   });
 
@@ -47,43 +47,30 @@ See detail at `./tests/testing/utils_test.ts`.
 
 ```typescript
 import {
-  KyselyDenoPostgresDialect,
-  PostgresConnection,
+  PostgresJSDialect,
   setup,
   wrapTransaction,
 } from "https://deno.land/x/kysely_deno_postgres_dialect/mod.ts";
 import { setupTesting } from "https://deno.land/x/kysely_deno_postgres_dialect/testing.ts";
 
-const connections: PostgresConnection[] = [];
-
 setup(() => {
-  const dialect = new KyselyDenoPostgresDialect({
-    pool: new Pool(
+  const dialect = new PostgresJSDialect({
+    postgres: postgres(
       {
         database: "postgres",
         hostname: "localhost",
         password: "postgres",
         port: 5432,
         user: "postgres",
+        max: 10,
       },
-      10,
-      true,
     ),
-    onCreateConnection: (connection: DatabaseConnection) => {
-      connections.push(connection as PostgresConnection);
-    },
   });
 
   return new Kysely<Database>({
     dialect,
   });
 });
-
-async function endConnections() {
-  for (const connection of connections) {
-    await connection.end();
-  }
-}
 
 // test files
 
@@ -106,7 +93,6 @@ describe("tests", () => {
   });
   afterEach(async () => {
     // note: fix Leaking resources error
-    await endConnections();
     await afterEachFn();
   });
 
