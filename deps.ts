@@ -1,3 +1,7 @@
+export type {
+  ReservedSql,
+  Sql,
+} from "https://deno.land/x/postgresjs@v3.4.4/types/index.d.ts";
 export {
   CompiledQuery,
   type DatabaseConnection,
@@ -13,8 +17,7 @@ export {
   type QueryResult,
   Transaction,
   type TransactionSettings,
-} from "https://esm.sh/kysely@0.27.0";
-export { Pool, PoolClient } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
+} from "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/index.js";
 
-export * as kysely from "https://esm.sh/kysely@0.27.0";
-export * as postgres from "https://deno.land/x/postgres@v0.17.0/mod.ts";
+export * as kysely from "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/index.js";
+export { default as postgres } from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
