@@ -15,6 +15,7 @@ export {
   PostgresQueryCompiler,
   type QueryCompiler,
   type QueryResult,
+  sql,
   Transaction,
   type TransactionSettings,
 } from "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/index.js";
