@@ -1,4 +1,4 @@
-export { type DatabaseConnection, kysely, postgres } from "./deps.ts";
+export { type DatabaseConnection, kysely, postgres, sql } from "./deps.ts";
 export {
   PostgresJSConnection,
   PostgresJSDialect,
