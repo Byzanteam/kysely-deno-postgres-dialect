@@ -18,7 +18,7 @@ export {
   sql,
   Transaction,
   type TransactionSettings,
-} from "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/index.js";
+} from "https://esm.sh/kysely@0.27.3";
 
-export * as kysely from "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/index.js";
+export * as kysely from "https://esm.sh/kysely@0.27.3";
 export { default as postgres } from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
