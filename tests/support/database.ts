@@ -1,6 +1,7 @@
-import { Kysely } from "../../deps.ts";
+import { Kysely } from "kysely/index.js";
 import { Database } from "./types.ts"; // this is the Database interface we defined earlier
-import { postgres, PostgresJSDialect } from "../../mod.ts";
+import { PostgresJSDialect } from "../../mod.ts";
+import postgres from "postgresjs/mod.js";
 
 const dialect = new PostgresJSDialect({
   postgres: postgres(

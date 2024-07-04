@@ -1,4 +1,4 @@
-import { Transaction as KyselyTransaction } from "../../deps.ts";
+import { Transaction as KyselyTransaction } from "kysely/index.js";
 import { _internals, Callback, closeDB, getDB } from "../utils.ts";
 import begin from "./begin.ts";
 

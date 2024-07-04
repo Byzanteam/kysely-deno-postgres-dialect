@@ -1,4 +1,4 @@
-import { Kysely, Transaction } from "../deps.ts";
+import { Kysely, Transaction } from "kysely/index.js";
 
 type Maybe<T> = T | undefined;
 

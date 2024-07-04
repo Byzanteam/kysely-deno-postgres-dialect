@@ -10,7 +10,7 @@ import {
   assertExists,
 } from "https://deno.land/std@0.210.0/assert/mod.ts";
 
-import { kysely } from "../deps.ts";
+import * as kysely from "kysely/index.js";
 import { db } from "./support/database.ts";
 import * as PersonRepository from "./support/person-repository.ts";
 

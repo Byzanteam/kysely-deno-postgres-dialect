@@ -1,4 +1,4 @@
-import { kysely } from "../../deps.ts";
+import * as kysely from "kysely/index.js";
 
 export interface Database {
   person: PersonTable;

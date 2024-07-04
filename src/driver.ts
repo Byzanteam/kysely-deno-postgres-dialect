@@ -1,4 +1,4 @@
-import type { Driver, TransactionSettings } from "../deps.ts";
+import type { Driver, TransactionSettings } from "kysely/index.js";
 import { PostgresJSConnection } from "./connection.ts";
 import type { PostgresJSDialectConfig } from "./types.ts";
 import { freeze } from "./postgres-utils.ts";

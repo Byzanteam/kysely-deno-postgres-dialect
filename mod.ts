@@ -1,8 +1,7 @@
-export { type DatabaseConnection, kysely, postgres, sql } from "./deps.ts";
+export { type DatabaseConnection, sql } from "kysely/index.js";
 export {
   PostgresJSConnection,
   PostgresJSDialect,
   PostgresJSDialectError,
 } from "./src/mod.ts";
-
 export { getDB, setup, wrapTransaction } from "./src/utils.ts";
