@@ -1,7 +1,7 @@
 // deno-lint-ignore-file
 // https://github.com/kysely-org/kysely/issues/257#issuecomment-1676079354
 
-import { Kysely, Transaction } from "../../deps.ts";
+import { Kysely, Transaction } from "kysely/index.js";
 
 class Deferred<T> {
   readonly #promise: Promise<T>;

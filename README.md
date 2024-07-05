@@ -8,12 +8,27 @@
 
 ## 🚀 Getting started
 
+Import using `imports` in `deno.json`
+
+```json
+{
+  "imports": {
+    "kysely-deno-postgres-dialect/": "https://deno.land/x/kysely_postgrs_js_dialect/",
+    "postgresjs/": "https://deno.land/x/postgresjs@v3.4.4/",
+    "kysely/": "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/"
+  }
+}
+```
+
+use kysely-deno-postgres-dialect
+
 ```typescript
 import {
   PostgresJSDialect,
   setup,
-} from "https://deno.land/x/kysely_postgrs_js_dialect/mod.ts";
-import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
+  wrapTransaction as wrapTransactionFn,
+} from "kysely-deno-postgres-dialect/mod.ts";
+import postgres from "postgresjs/mod.js";
 
 setup(() => {
   const dialect = new PostgresJSDialect({
@@ -29,12 +44,20 @@ setup(() => {
     ),
   });
 
-  return new Kysely<Database>({
+  return new Kysely<Database>({ // Database is defined by Kysely orm
     dialect,
   });
 });
 
-// run queries
+async function wrapTransaction<T>(
+  callback: Parameters<typeof wrapTransactionFn<Database, T>>[0],
+): Promise<T> {
+  return await wrapTransactionFn<Database, T>(callback);
+}
+
+const data = await wrapTransaction(async (trx) => {
+  return trx.selectFrom("hello").selectAll().execute();
+});
 ```
 
 ## 🩺 Testing
