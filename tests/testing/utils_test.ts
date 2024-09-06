@@ -19,27 +19,9 @@ setup(() => {
   return db;
 });
 
-const {
-  beforeAllFn,
-  beforeEachFn,
-  afterEachFn,
-  afterAllFn,
-} = setupTesting(stub);
+setupTesting({ stub, beforeEach, afterEach, beforeAll, afterAll });
 
 describe("testing_utils", () => {
-  beforeAll(async () => {
-    await beforeAllFn();
-  });
-  afterAll(async () => {
-    await afterAllFn();
-  });
-  beforeEach(async () => {
-    await beforeEachFn();
-  });
-  afterEach(async () => {
-    await afterEachFn();
-  });
-
   it("works", async () => {
     const result = await wrapTransaction<Database, { age: number }>(
       async (trx) => {

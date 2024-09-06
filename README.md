@@ -1,35 +1,58 @@
 # kysely-deno-postgres-dialect
 
 [![ci](https://github.com/Byzanteam/kysely_deno_postgres_dialect/actions/workflows/ci.yml/badge.svg)](https://github.com/Byzanteam/kysely_deno_postgres_dialect/actions/workflows/ci.yml)
-[![Latest version](https://deno.land/badge/kysely_deno_postgres_dialect/version)](https://deno.land/x/kysely_deno_postgres_dialect)
+[![JSR](https://jsr.io/badges/@byzanteam/kysely-deno-postgres-dialect)](https://jsr.io/@byzanteam/kysely-deno-postgres-dialect)
 
 [Kysely](https://github.com/kysely-org/kysely) dialect for PostgreSQL using the
 [postgresjs](https://github.com/porsager/postgres) client.
 
 ## 🚀 Getting started
 
-Import using `imports` in `deno.json`
+### Install dependencies
+
+```
+deno add @byzanteam/kysely-deno-postgres-dialect
+```
+
+Optional: Import using `imports` in `deno.json`, if you dont want to use `npm`
+registry.
 
 ```json
 {
   "imports": {
-    "kysely-deno-postgres-dialect/": "https://deno.land/x/kysely_postgrs_js_dialect/",
+    "kysely-deno-postgres-dialect": "jsr:@byzanteam/kysely-deno-postgres-dialect",
     "postgresjs": "https://deno.land/x/postgresjs@v3.4.4/mod.js",
     "kysely": "https://esm.sh/kysely@0.27.3"
   }
 }
 ```
 
-use kysely-deno-postgres-dialect
+### Use kysely-deno-postgres-dialect
+
+1. Define your database schema
 
 ```typescript
+import postgres from "postgresjs/mod.js";
+import * as kysely from "kysely";
 import {
   PostgresJSDialect,
   setup,
   wrapTransaction as wrapTransactionFn,
-} from "kysely-deno-postgres-dialect/mod.ts";
-import postgres from "postgresjs/mod.js";
+} from "kysely-deno-postgres-dialect";
 
+interface UserTable {
+  id: kysely.Generated<number>;
+  name: string;
+}
+
+interface Database {
+  users: UserTable;
+}
+```
+
+2. Setup the kysely instance before using it
+
+```typescript
 setup(() => {
   const dialect = new PostgresJSDialect({
     postgres: postgres(
@@ -44,81 +67,90 @@ setup(() => {
     ),
   });
 
-  return new Kysely<Database>({ // Database is defined by Kysely orm
+  return new kysely.Kysely<Database>({
     dialect,
   });
 });
+```
 
+3. Make your own `wrapTransaction` function that incorporates a database context
+
+```typescript
 async function wrapTransaction<T>(
   callback: Parameters<typeof wrapTransactionFn<Database, T>>[0],
 ): Promise<T> {
   return await wrapTransactionFn<Database, T>(callback);
 }
+```
 
-const data = await wrapTransaction(async (trx) => {
-  return trx.selectFrom("hello").selectAll().execute();
+4. Use the `wrapTransaction` function to execute queries
+
+```typescript
+const users = await wrapTransaction(async (trx) => {
+  return await trx.selectFrom("users").selectAll().execute();
 });
 ```
 
 ## 🩺 Testing
 
-See detail at `./tests/testing/utils_test.ts`.
+> [!TIP]\
+> See examples at `./tests/testing/utils_test.ts`.
 
-> [!IMPORTANT]\
-> To fix `leaking resources` error, you should end all connections between
-> cases.
+`setupTesting` function is provided to set up the testing environment. It stubs
+transaction functions, and each test runs in a transaction that is rolled back
+after the test. Theoretically, tests are isolated from each other, and can be
+run in parallel.
+
+1. Add a helper function to setup the testing database
 
 ```typescript
-import {
-  PostgresJSDialect,
-  setup,
-  wrapTransaction,
-} from "https://deno.land/x/kysely_deno_postgres_dialect/mod.ts";
-import { setupTesting } from "https://deno.land/x/kysely_deno_postgres_dialect/testing.ts";
+// test_helper.ts
 
-setup(() => {
-  const dialect = new PostgresJSDialect({
-    postgres: postgres(
-      {
-        database: "postgres",
-        hostname: "localhost",
-        password: "postgres",
-        port: 5432,
-        user: "postgres",
-        max: 10,
-      },
-    ),
+import { PostgresJSDialect, setup } from "kysely-deno-postgres-dialect";
+import { Kysely } from "kysely";
+import postgres from "postgresjs";
+
+export function setupTestingDB() {
+  setup(() => {
+    const dialect = new PostgresJSDialect({
+      postgres: postgres(
+        {
+          database: "postgres",
+          hostname: "localhost",
+          password: "postgres",
+          port: 5432,
+          user: "postgres",
+          max: 10,
+        },
+      ),
+    });
+
+    return new Kysely<Database>({
+      dialect,
+    });
   });
+}
+```
 
-  return new Kysely<Database>({
-    dialect,
-  });
-});
+2. Setup the testing environment in the test files, and write tests
 
+```typescript
 // test files
 
-const {
-  beforeAllFn,
-  beforeEachFn,
-  afterEachFn,
-  afterAllFn,
-} = setupTesting(stub);
+import { setupTesting } from "kysely-deno-postgres-dialect/testing";
+import { stub } from "jsr:@std/testing/mock";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  it,
+} from "jsr:@std/testing/bdd";
 
-describe("tests", () => {
-  beforeAll(async () => {
-    await beforeAllFn();
-  });
-  afterAll(async () => {
-    await afterAllFn();
-  });
-  beforeEach(async () => {
-    await beforeEachFn();
-  });
-  afterEach(async () => {
-    // note: fix Leaking resources error
-    await afterEachFn();
-  });
+setupTesting({ stub, beforeEach, afterEach, beforeAll, afterAll });
 
+describe("this is a description", () => {
   it("works", async () => {
     // snip
   });
