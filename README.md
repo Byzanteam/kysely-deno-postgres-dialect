@@ -33,7 +33,7 @@ registry.
 
 ```typescript
 import postgres from "postgresjs/mod.js";
-import * as kysely from "kysely";
+import { type Generated, Kysely } from "kysely";
 import {
   PostgresJSDialect,
   setup,
@@ -41,7 +41,7 @@ import {
 } from "kysely-deno-postgres-dialect";
 
 interface UserTable {
-  id: kysely.Generated<number>;
+  id: Generated<number>;
   name: string;
 }
 
@@ -67,7 +67,7 @@ setup(() => {
     ),
   });
 
-  return new kysely.Kysely<Database>({
+  return new Kysely<Database>({
     dialect,
   });
 });
