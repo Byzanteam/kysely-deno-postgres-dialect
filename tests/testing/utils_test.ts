@@ -1,5 +1,5 @@
-import { stub } from "https://deno.land/std@0.210.0/testing/mock.ts";
-import { assertObjectMatch } from "https://deno.land/std@0.210.0/assert/mod.ts";
+import { stub } from "../deps.ts";
+import { assertObjectMatch } from "../deps.ts";
 import {
   afterAll,
   afterEach,
@@ -7,7 +7,7 @@ import {
   beforeEach,
   describe,
   it,
-} from "https://deno.land/std@0.210.0/testing/bdd.ts";
+} from "../deps.ts";
 
 import { db } from "../support/database.ts";
 import type { Database } from "../support/types.ts";
