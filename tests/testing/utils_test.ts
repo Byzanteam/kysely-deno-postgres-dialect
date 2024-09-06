@@ -13,7 +13,7 @@ import { db } from "../support/database.ts";
 import type { Database } from "../support/types.ts";
 import { setup, wrapTransaction } from "../../src/utils.ts";
 import { setupTesting } from "../../src/testing/utils.ts";
-import { CompiledQuery } from "kysely/index.js";
+import { CompiledQuery } from "kysely";
 
 setup(() => {
   return db;

@@ -1,4 +1,4 @@
-import type * as kysely from "kysely/index.js";
+import type * as kysely from "kysely";
 
 export interface Database {
   person: PersonTable;

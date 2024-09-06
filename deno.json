@@ -1,20 +1,29 @@
 {
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "name": "@byzanteam/kysely-deno-postgres-dialect",
+  "version": "0.27.6",
+  "exports": {
+    ".": "./mod.ts",
+    "./testing": "./testing.ts"
+  },
+  "publish": {
+    "exclude": [
+      ".*",
+      "tests/"
+    ]
+  },
   "compilerOptions": {
     "strict": true,
     "useUnknownInCatchVariables": true,
     "noImplicitOverride": true
   },
-  "exclude": [
-    ".git"
-  ],
   "tasks": {
     "test": "deno test -A",
     "check:types": "deno check **/*.ts",
     "check": "deno fmt --check && deno lint && deno task check:types && deno task test"
   },
   "imports": {
-    "postgresjs/": "https://deno.land/x/postgresjs@v3.4.4/",
-    "kysely/": "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/"
+    "kysely": "npm:kysely@0.27.3",
+    "postgresjs": "npm:postgres@3.4.4"
   }
 }

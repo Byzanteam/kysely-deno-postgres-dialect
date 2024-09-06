@@ -1,4 +1,4 @@
-import type { Kysely, Transaction } from "kysely/index.js";
+import type { Kysely, Transaction } from "kysely";
 
 type Maybe<T> = T | undefined;
 

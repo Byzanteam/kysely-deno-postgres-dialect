@@ -8,7 +8,7 @@ import {
   PostgresIntrospector,
   PostgresQueryCompiler,
   type QueryCompiler,
-} from "kysely/index.js";
+} from "kysely";
 import { PostgresJSDriver } from "./driver.ts";
 import type { PostgresJSDialectConfig } from "./types.ts";
 import { freeze } from "./postgres-utils.ts";
