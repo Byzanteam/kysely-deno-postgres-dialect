@@ -1,5 +1,5 @@
-import { Transaction as KyselyTransaction } from "kysely/index.js";
-import { _internals, Callback, closeDB, getDB } from "../utils.ts";
+import type { Transaction as KyselyTransaction } from "kysely/index.js";
+import { _internals, type Callback, closeDB, getDB } from "../utils.ts";
 import begin from "./begin.ts";
 
 type Maybe<T> = T | undefined;
