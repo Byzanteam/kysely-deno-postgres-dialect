@@ -14,8 +14,8 @@ Import using `imports` in `deno.json`
 {
   "imports": {
     "kysely-deno-postgres-dialect/": "https://deno.land/x/kysely_postgrs_js_dialect/",
-    "postgresjs/": "https://deno.land/x/postgresjs@v3.4.4/",
-    "kysely/": "https://cdn.jsdelivr.net/npm/kysely@0.27.3/dist/esm/"
+    "postgresjs": "https://deno.land/x/postgresjs@v3.4.4/mod.js",
+    "kysely": "https://esm.sh/kysely@0.27.3"
   }
 }
 ```

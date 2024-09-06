@@ -1,5 +1,5 @@
-import { Transaction as KyselyTransaction } from "kysely/index.js";
-import { _internals, Callback, closeDB, getDB } from "../utils.ts";
+import type { Transaction as KyselyTransaction } from "kysely";
+import { _internals, type Callback, closeDB, getDB } from "../utils.ts";
 import begin from "./begin.ts";
 
 type Maybe<T> = T | undefined;
@@ -35,7 +35,12 @@ type Stub = { restore: () => unknown };
  */
 export function setupTesting<T>(
   stub: (...args: unknown[]) => Stub,
-) {
+): {
+  beforeAllFn: () => Promise<void>;
+  beforeEachFn: () => Promise<void>;
+  afterEachFn: () => Promise<void>;
+  afterAllFn: () => Promise<void>;
+} {
   let transactionStub: Maybe<Stub>;
 
   // deno-lint-ignore require-await

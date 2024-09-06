@@ -1,5 +1,5 @@
-import type { Sql } from "postgresjs/types/index.d.ts";
+import type postgres from "postgresjs";
 
 export interface PostgresJSDialectConfig {
-  readonly postgres: Sql;
+  readonly postgres: postgres.Sql;
 }

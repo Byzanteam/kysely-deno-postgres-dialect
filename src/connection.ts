@@ -1,16 +1,16 @@
 import {
   CompiledQuery,
-  DatabaseConnection,
-  QueryResult,
-  TransactionSettings,
-} from "kysely/index.js";
-import { ReservedSql } from "postgresjs/types/index.d.ts";
+  type DatabaseConnection,
+  type QueryResult,
+  type TransactionSettings,
+} from "kysely";
+import type postgres from "postgresjs";
 import { PostgresJSDialectError } from "./errors.ts";
 
 export class PostgresJSConnection implements DatabaseConnection {
-  #reservedConnection: ReservedSql;
+  #reservedConnection: postgres.ReservedSql;
 
-  constructor(reservedConnection: ReservedSql) {
+  constructor(reservedConnection: postgres.ReservedSql) {
     this.#reservedConnection = reservedConnection;
   }
 
