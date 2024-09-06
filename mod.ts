@@ -1,4 +1,3 @@
-export { type DatabaseConnection, sql } from "kysely";
 export {
   PostgresJSConnection,
   PostgresJSDialect,

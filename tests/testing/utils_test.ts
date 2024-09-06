@@ -1,5 +1,5 @@
-import { stub } from "https://deno.land/std@0.210.0/testing/mock.ts";
-import { assertObjectMatch } from "https://deno.land/std@0.210.0/assert/mod.ts";
+import { stub } from "../deps.ts";
+import { assertObjectMatch } from "../deps.ts";
 import {
   afterAll,
   afterEach,
@@ -7,7 +7,7 @@ import {
   beforeEach,
   describe,
   it,
-} from "https://deno.land/std@0.210.0/testing/bdd.ts";
+} from "../deps.ts";
 
 import { db } from "../support/database.ts";
 import type { Database } from "../support/types.ts";
@@ -19,27 +19,9 @@ setup(() => {
   return db;
 });
 
-const {
-  beforeAllFn,
-  beforeEachFn,
-  afterEachFn,
-  afterAllFn,
-} = setupTesting(stub);
+setupTesting({ stub, beforeEach, afterEach, beforeAll, afterAll });
 
 describe("testing_utils", () => {
-  beforeAll(async () => {
-    await beforeAllFn();
-  });
-  afterAll(async () => {
-    await afterAllFn();
-  });
-  beforeEach(async () => {
-    await beforeEachFn();
-  });
-  afterEach(async () => {
-    await afterEachFn();
-  });
-
   it("works", async () => {
     const result = await wrapTransaction<Database, { age: number }>(
       async (trx) => {

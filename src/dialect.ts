@@ -13,6 +13,9 @@ import { PostgresJSDriver } from "./driver.ts";
 import type { PostgresJSDialectConfig } from "./types.ts";
 import { freeze } from "./postgres-utils.ts";
 
+/**
+ * A kysely dialect for PostgreSQL using the `postgres` library.
+ */
 export class PostgresJSDialect implements Dialect {
   readonly #config: PostgresJSDialectConfig;
 

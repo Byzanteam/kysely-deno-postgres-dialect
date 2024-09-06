@@ -1,14 +1,5 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  describe,
-  it,
-} from "https://deno.land/std@0.210.0/testing/bdd.ts";
-import {
-  assertEquals,
-  assertExists,
-} from "https://deno.land/std@0.210.0/assert/mod.ts";
+import { afterAll, afterEach, beforeAll, describe, it } from "./deps.ts";
+import { assertEquals, assertExists } from "./deps.ts";
 
 import * as kysely from "kysely";
 import { db } from "./support/database.ts";

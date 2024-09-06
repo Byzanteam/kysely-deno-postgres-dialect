@@ -7,6 +7,9 @@ import {
 import type postgres from "postgresjs";
 import { PostgresJSDialectError } from "./errors.ts";
 
+/**
+ * A database connection that uses the `postgresjs` library.
+ */
 export class PostgresJSConnection implements DatabaseConnection {
   #reservedConnection: postgres.ReservedSql;
 

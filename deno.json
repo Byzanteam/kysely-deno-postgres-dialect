@@ -1,7 +1,7 @@
 {
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "name": "@byzanteam/kysely-deno-postgres-dialect",
-  "version": "0.27.6",
+  "version": "0.27.7",
   "exports": {
     ".": "./mod.ts",
     "./testing": "./testing.ts"
