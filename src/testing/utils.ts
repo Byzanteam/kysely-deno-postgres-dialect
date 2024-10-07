@@ -6,19 +6,6 @@ type Maybe<T> = T | undefined;
 
 // deno-lint-ignore no-explicit-any
 type Transaction = KyselyTransaction<any>;
-let transaction: Maybe<Transaction>;
-
-let rollbackFn: Maybe<() => Promise<void>>;
-
-async function doWrapTransactionStub<T, U>(
-  callback: Callback<T, U>,
-): Promise<U> {
-  if (!transaction) {
-    throw new Error("Transaction not initialized");
-  }
-
-  return await callback(transaction);
-}
 
 type Stub = { restore: () => unknown };
 type beforeAll<T> = (fn: (this: T) => void | Promise<void>) => void;
@@ -55,6 +42,20 @@ interface setupTestingOptions {
 export function setupTesting<T>(
   { stub, beforeAll, beforeEach, afterEach, afterAll }: setupTestingOptions,
 ): void {
+  let transaction: Maybe<Transaction>;
+
+  let rollbackFn: Maybe<() => Promise<void>>;
+
+  async function doWrapTransactionStub<T, U>(
+    callback: Callback<T, U>,
+  ): Promise<U> {
+    if (!transaction) {
+      throw new Error("Transaction not initialized");
+    }
+
+    return await callback(transaction);
+  }
+
   let transactionStub: Maybe<Stub>;
 
   beforeAll(() => {
