@@ -22,7 +22,7 @@ registry.
   "imports": {
     "kysely-deno-postgres-dialect": "jsr:@byzanteam/kysely-deno-postgres-dialect",
     "postgresjs": "https://deno.land/x/postgresjs@v3.4.4/mod.js",
-    "kysely": "https://esm.sh/kysely@0.27.3"
+    "kysely": "https://esm.sh/kysely@0.27.4"
   }
 }
 ```
